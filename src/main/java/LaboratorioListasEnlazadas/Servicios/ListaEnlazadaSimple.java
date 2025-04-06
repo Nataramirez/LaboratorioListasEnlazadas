@@ -17,50 +17,50 @@ public class ListaEnlazadaSimple<T> {
         this.tamanio++;
     }
 
-    public void borrarLista(){
+    public void borrarLista() {
         nodoInicio = null;
         nodoFinal = null;
         tamanio = 0;
     }
 
-    public void agregarNodoAlInicio(Nodo<T> nodo) {
-        if(tamanio == 0) {
+    public void agregarAlInicio(T valor) {
+        Nodo<T> nodo = new Nodo<>(valor);
+        if (tamanio == 0) {
             agregarPrimerNodo(nodo);
-        }else {
-            Nodo<T> nodoAux = nodoInicio;
+        } else {
+            nodo.setNodoSiguiente(nodoInicio);
             nodoInicio = nodo;
-            nodoInicio.setNodoSiguiente(nodoAux);
             tamanio++;
         }
     }
 
-    public void agregarNodoAlFinal(Nodo<T> nodo) {
-        if(tamanio == 0) {
+    public void agregarAlFinal(T valor) {
+        Nodo<T> nodo = new Nodo<>(valor);
+        if (tamanio == 0) {
             agregarPrimerNodo(nodo);
-        }else {
-            Nodo nodoAux = nodoFinal;
+        } else {
+            nodoFinal.setNodoSiguiente(nodo);
             nodoFinal = nodo;
-            nodoAux.setNodoSiguiente(nodo);
             tamanio++;
         }
     }
 
-    public void borrarNodoInicial() {
-        if(tamanio == 0) throw new RuntimeException("La lista esta vacia");
-        if(tamanio == 1) borrarLista();
-        if(tamanio > 1) {
+    public void borrarValorInicial() {
+        if (tamanio == 0) throw new RuntimeException("La lista esta vacia");
+        if (tamanio == 1) borrarLista();
+        if (tamanio > 1) {
             Nodo<T> nodoAux = nodoInicio;
             nodoInicio = nodoAux.getNodoSiguiente();
             tamanio--;
         }
     }
 
-    public void deleteEndNode() {
-        if(tamanio == 0) throw new RuntimeException("La lista esta vacia");
-        if(tamanio == 1) borrarLista();
-        if(tamanio > 1) {
+    public void borrarValorFinal() {
+        if (tamanio == 0) throw new RuntimeException("La lista esta vacia");
+        if (tamanio == 1) borrarLista();
+        if (tamanio > 1) {
             Nodo nodoAux = nodoFinal;
-            while(nodoAux.getNodoSiguiente() != null) {
+            while (nodoAux.getNodoSiguiente() != null) {
                 nodoAux = nodoAux.getNodoSiguiente();
             }
             nodoAux.setNodoSiguiente(null);
@@ -68,4 +68,9 @@ public class ListaEnlazadaSimple<T> {
             tamanio--;
         }
     }
+
+    public int getTamanio() {
+        return tamanio;
+    }
+
 }
