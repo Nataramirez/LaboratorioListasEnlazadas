@@ -1,6 +1,8 @@
 package LaboratorioListasEnlazadas.Servicios;
 
-public class ListaEnlazadaSimple<T> {
+import java.util.Iterator;
+
+public class ListaEnlazadaSimple<T> implements Iterable<T> {
     private int tamanio;
     private Nodo<T> nodoInicio;
     private Nodo<T> nodoFinal;
@@ -69,8 +71,50 @@ public class ListaEnlazadaSimple<T> {
         }
     }
 
+
+    public void imprimir() {
+        Nodo<T> temp = nodoInicio;
+        while (temp != null) {
+            System.out.println(temp.getValor());
+            temp = temp.getNodoSiguiente();
+        }
+    }
+
     public int getTamanio() {
         return tamanio;
     }
 
+    @Override
+    public Iterator<T> iterator() {
+        return new IteradorListaSimple(nodoInicio);
+    }
+
+    protected class IteradorListaSimple implements Iterator<T> {
+
+        private Nodo<T> nodo;
+        private int posicion;
+        
+        public IteradorListaSimple(Nodo<T> nodo) {
+            this.nodo = nodo;
+            this.posicion = 0;
+
+        }
+
+        @Override
+        public boolean hasNext() {
+            return nodo != null;
+        }
+
+        @Override
+        public T next() {
+            T valor = nodo.getValor();
+            nodo = nodo.getNodoSiguiente();
+            posicion++;
+            return valor;
+        }
+
+        public int getPosicion() {
+            return posicion;
+        }
+    }
 }
