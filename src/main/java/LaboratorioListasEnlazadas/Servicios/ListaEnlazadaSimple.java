@@ -71,6 +71,28 @@ public class ListaEnlazadaSimple<T> implements Iterable<T> {
         }
     }
 
+    public void eliminarNodo(T valor) {
+        if (tamanio == 0) {
+            throw new IllegalStateException("La lista está vacía");
+        }
+
+        Nodo<T> actual = nodoInicio;
+        Nodo<T> anterior = null;
+
+        while (actual != null) {
+            if (actual.getValor().equals(valor)) {
+                if (anterior == null) {
+                    nodoInicio = actual.getNodoSiguiente();
+                } else {
+                    anterior.setNodoSiguiente(actual.getNodoSiguiente());
+                }
+                tamanio--;
+                return;
+            }
+            anterior = actual;
+            actual = actual.getNodoSiguiente();
+        }
+    }
 
     public void imprimir() {
         Nodo<T> temp = nodoInicio;
