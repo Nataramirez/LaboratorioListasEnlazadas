@@ -12,6 +12,14 @@ public class ListaEnlazadaDoble<T> {
         tamanio = 0;
     }
 
+    public NodoDoble<T> getNodoPrimero() {
+        return nodoPrimero;
+    }
+
+    public NodoDoble<T> getNodoUltimo() {
+        return nodoUltimo;
+    }
+
     public void agregarAlInicio(T valor) {
 
         NodoDoble<T> nodo = new NodoDoble<>(valor);
