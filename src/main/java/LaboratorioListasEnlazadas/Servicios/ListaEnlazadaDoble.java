@@ -1,6 +1,8 @@
 package LaboratorioListasEnlazadas.Servicios;
 
-public class ListaEnlazadaDoble<T> {
+import java.util.Iterator;
+
+public class ListaEnlazadaDoble<T> implements Iterable<T> {
 
     private NodoDoble<T> nodoPrimero;
     private NodoDoble<T> nodoUltimo;
@@ -63,6 +65,58 @@ public class ListaEnlazadaDoble<T> {
         while (nodo != null) {
             System.out.println(nodo.getValorNodo());
             nodo = nodo.getAnteriorNodo();
+        }
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new IteradorListaDoble<>(nodoPrimero);
+
+    }
+
+    public Iterator<T> iteratorInverso() {
+        return new IteradorListaDoble(nodoUltimo, true);
+    }
+
+
+    public class IteradorListaDoble<T> implements Iterator<T> {
+        private NodoDoble<T> nodoActual;
+        private boolean iterarHaciaAtras;
+
+        // Constructor para iterar hacia adelante
+        public IteradorListaDoble(NodoDoble<T> nodo) {
+            this(nodo, false);
+        }
+
+        // Constructor para iterar hacia atrás (si se pasa 'true')
+        public IteradorListaDoble(NodoDoble<T> nodo, boolean iterarHaciaAtras) {
+            this.nodoActual = nodo;
+            this.iterarHaciaAtras = iterarHaciaAtras;
+        }
+
+        @Override
+        public boolean hasNext() {
+            if (iterarHaciaAtras) {
+                return nodoActual != null && nodoActual.getAnteriorNodo() != null;
+            }
+            return nodoActual != null && nodoActual.getSiguienteNodo() != null;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new RuntimeException("No hay nodo para continuar");
+            }
+
+            T valor = nodoActual.getValorNodo();
+
+            if (iterarHaciaAtras) {
+                nodoActual = nodoActual.getAnteriorNodo();
+            } else {
+                nodoActual = nodoActual.getSiguienteNodo();
+            }
+
+            return valor;
         }
     }
 }
