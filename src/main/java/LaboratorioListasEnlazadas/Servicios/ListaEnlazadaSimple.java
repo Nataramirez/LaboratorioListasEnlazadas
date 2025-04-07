@@ -111,7 +111,7 @@ public class ListaEnlazadaSimple<T> implements Iterable<T> {
         return new IteradorListaSimple(nodoInicio);
     }
 
-    protected class IteradorListaSimple implements Iterator<T> {
+    public class IteradorListaSimple implements Iterator<T> {
 
         private Nodo<T> nodo;
         private int posicion;
