@@ -1,4 +1,4 @@
-package LaboratorioListasEnlazadas.ejercicio_12;
+package LaboratorioListasEnlazadas.Ejercicio_12;
 
 import LaboratorioListasEnlazadas.Servicios.ListaEnlazadaSimple;
 
